@@ -1,14 +1,43 @@
-import React from "react";
-import { StyleSheet, Text } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, FlatList } from "react-native";
 
 import Screen from "../components/Screen";
+import ItemList from "../components/ItemList";
 
 function QrList() {
+  const [listings, setListings] = useState([]);
+
+  const listing = [
+    {
+      id: 1,
+      link: "http://google.com",
+      price: 30,
+    },
+    {
+      id: 2,
+      link: "http://google.com",
+      price: 40,
+    },
+  ];
+  useEffect(() => {
+    setListings(listing);
+  }, []);
+
+  const deleteItem = (id) => {
+    setListings(listings.filter((x) => x.id != id));
+    console.log("listing", listings);
+  };
+
   return (
     <Screen style={styles.screen}>
-      <Text style={styles.text}>QR List</Text>
-      <MaterialCommunityIcons name="qrcode" size={24} color="black" />
+      <Text style={styles.text}>Qr List</Text>
+      <FlatList
+        data={listings}
+        keyExtractor={(listing) => listing.id.toString()}
+        renderItem={({ item }) => (
+          <ItemList item={item} deleteItem={deleteItem} />
+        )}
+      />
     </Screen>
   );
 }
@@ -17,8 +46,12 @@ export default QrList;
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
     backgroundColor: "#f9eeec",
-    alignItems: "center",
+  },
+  text: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignSelf: "center",
+    marginTop: 10,
   },
 });
