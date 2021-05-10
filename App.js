@@ -3,8 +3,9 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ReadQr from "./app/screens/ReadQr";
 import QrList from "./app/screens/QrList";
+
 export default function App() {
-  return <ReadQr />;
+  return <QrList />;
 }
 
 const styles = StyleSheet.create({
