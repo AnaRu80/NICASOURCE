@@ -4,7 +4,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 
 import Screen from "../components/Screen";
 
-function ReadQr() {
+function ReadQr({ navigation }) {
   // Permission for camera access
   const requestPermission = async () => {
     const { granted } = await BarCodeScanner.requestPermissionsAsync();
