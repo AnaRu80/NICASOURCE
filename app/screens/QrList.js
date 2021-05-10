@@ -1,49 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, FlatList } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Screen from "../components/Screen";
 import ItemList from "../components/ItemList";
 
+import { deleteQr } from "../actions/qrAction";
+
 function QrList() {
-  const [listings, setListings] = useState([]);
+  const dispatch = useDispatch();
+  const deleteSelectedQr = (id) => dispatch(deleteQr(id));
+  const qrs = useSelector((state) => state.qrReducer.QRData);
 
-  const listing = [
-    {
-      id: 1,
-      link: "http://google.com",
-      price: 30,
-    },
-    {
-      id: 2,
-      link: "http://google.com",
-      price: 40,
-    },
-  ];
-  useEffect(() => {
-    setListings(listing);
-  }, []);
-
-  const deleteItem = (id) => {
-    setListings(listings.filter((x) => x.id != id));
-    console.log("listing", listings);
-  };
+  // const deleteItem = (id) => {
+  //   setListings(listings.filter((x) => x.id != id));
+  //   console.log("listing", listings);
+  // };
 
   return (
     <Screen style={styles.screen}>
       <Text style={styles.text}>Qr List</Text>
       <FlatList
-        data={listings}
-        keyExtractor={(listing) => listing.id.toString()}
+        data={qrs}
+        keyExtractor={(qr) => qr.id.toString()}
         renderItem={({ item }) => (
-          <ItemList item={item} deleteItem={deleteItem} />
+          <ItemList item={item} deleteSelectedQr={deleteSelectedQr} />
         )}
       />
     </Screen>
   );
 }
-
-export default QrList;
-
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: "#f9eeec",
@@ -55,3 +41,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default QrList;

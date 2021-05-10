@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function ItemList({ item, deleteItem }) {
+function ItemList({ item, deleteSelectedQr }) {
   return (
     <View style={styles.ItemLisContainer}>
       <MaterialCommunityIcons
@@ -21,7 +21,7 @@ function ItemList({ item, deleteItem }) {
       <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
         <Text style={styles.textLink}>{item.link}</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => deleteItem(item.id)}>
+      <TouchableOpacity onPress={() => deleteSelectedQr(item.id)}>
         <MaterialCommunityIcons
           name="delete"
           size={24}
