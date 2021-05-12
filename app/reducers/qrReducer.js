@@ -1,13 +1,18 @@
-import { ADD_QR, DELETE_QR } from "../actions/type";
+import { ADD_QR, DELETE_QR, FILTER_QR } from "../actions/type";
 
 const initialState = {
-  QRData: [],
+  filterData: [],
+  QRData: [
+    {
+      id: 1,
+      link: "google.com",
+    },
+  ],
 };
 
 const qrReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_QR:
-      console.log(action.payload);
       return {
         ...state,
         QRData: state.QRData.concat({
@@ -15,10 +20,23 @@ const qrReducer = (state = initialState, action) => {
           link: action.payload,
         }),
       };
+    case FILTER_QR:
+      return {
+        ...state,
+        filterData: state.QRData.filter((item) => {
+          const itemData = item.link
+            ? item.link.toLowerCase()
+            : "".toLowerCase();
+          const textData = action.link.toLowerCase();
+          return itemData.indexOf(textData) > -1;
+        }),
+      };
+
     case DELETE_QR:
       return {
         ...state,
         QRData: state.QRData.filter((item) => item.id !== action.payload),
+        filterData: state.QRData.filter((item) => item.id !== action.payload),
       };
     default:
       return state;
