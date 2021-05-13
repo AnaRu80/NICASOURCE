@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, FlatList, TextInput } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import {
+  StyleSheet, Text, FlatList, TextInput,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Screen from "../components/Screen";
-import ItemList from "../components/ItemList";
+import Screen from '../components/Screen';
+import ItemList from '../components/ItemList';
 
-import { deleteQr, filterQr } from "../actions/qrAction";
+import { deleteQr, filterQr } from '../actions/qrAction';
 
 function QrList() {
   const dispatch = useDispatch();
@@ -13,28 +15,45 @@ function QrList() {
 
   const filterQrs = useSelector((state) => state.qrReducer.filterData);
 
-  const [search, setSearch] = useState("");
-
-  const searchFilter = (search) => {
-    setSearch(search);
-    if (search) {
-      dispatch(filterQr(search));
+  const searchFilter = (text) => {
+    if (text) {
+      dispatch(filterQr(text));
     } else {
-      dispatch(filterQr(""));
+      dispatch(filterQr(''));
     }
   };
   useEffect(() => {
-    dispatch(filterQr(""));
+    dispatch(filterQr(''));
   }, []);
+
+  const styles = StyleSheet.create({
+    inputText: {
+      margin: 15,
+      height: 40,
+      borderColor: 'tomato',
+      borderWidth: 1,
+      paddingLeft: 5,
+      borderRadius: 10,
+    },
+    screen: {
+      backgroundColor: '#f9eeec',
+    },
+
+    text: {
+      fontSize: 30,
+      fontWeight: 'bold',
+      alignSelf: 'center',
+      marginTop: 10,
+    },
+  });
 
   return (
     <Screen style={styles.screen}>
-      <Text style={styles.text}>Qr List</Text>
+      <Text style={styles.text}>QR Codes</Text>
       <TextInput
-        placeholder="Search a Qr"
+        placeholder="'Search a QR'"
         style={styles.inputText}
-        onChangeText={searchFilter}
-        value={search}
+        onChangeText={(text) => searchFilter(text)}
       />
       <FlatList
         data={filterQrs}
@@ -46,24 +65,5 @@ function QrList() {
     </Screen>
   );
 }
-const styles = StyleSheet.create({
-  inputText: {
-    margin: 15,
-    height: 40,
-    borderColor: "tomato",
-    borderWidth: 1,
-    paddingLeft: 5,
-  },
-  screen: {
-    backgroundColor: "#f9eeec",
-  },
-
-  text: {
-    fontSize: 30,
-    fontWeight: "bold",
-    alignSelf: "center",
-    marginTop: 10,
-  },
-});
 
 export default QrList;

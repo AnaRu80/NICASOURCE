@@ -1,11 +1,11 @@
-import { ADD_QR, DELETE_QR, FILTER_QR } from "../actions/type";
+import { ADD_QR, DELETE_QR, FILTER_QR } from '../actions/type';
 
 const initialState = {
   filterData: [],
   QRData: [
     {
       id: 1,
-      link: "google.com",
+      link: 'google.com',
     },
   ],
 };
@@ -26,7 +26,7 @@ const qrReducer = (state = initialState, action) => {
         filterData: state.QRData.filter((item) => {
           const itemData = item.link
             ? item.link.toLowerCase()
-            : "".toLowerCase();
+            : ''.toLowerCase();
           const textData = action.link.toLowerCase();
           return itemData.indexOf(textData) > -1;
         }),
