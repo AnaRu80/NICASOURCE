@@ -1,12 +1,40 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
   Linking,
   TouchableOpacity,
   StyleSheet,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+} from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+const styles = StyleSheet.create({
+  ItemLisContainer: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    paddingVertical: 10,
+    marginHorizontal: 15,
+  },
+  textLink: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+    flex: 1,
+    textAlign: 'center',
+  },
+  touchText: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  iconTrash: {
+    paddingRight: 10,
+  },
+  IconQR: {
+    paddingLeft: 10,
+  },
+});
 
 function ItemList({ item, deleteSelectedQr }) {
   return (
@@ -15,10 +43,10 @@ function ItemList({ item, deleteSelectedQr }) {
         name="qrcode"
         size={24}
         color="black"
-        style={{ paddingLeft: 10 }}
+        style={styles.IconQR}
       />
 
-      <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
+      <TouchableOpacity style={styles.touchText} onPress={() => Linking.openURL(item.link)}>
         <Text style={styles.textLink}>{item.link}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => deleteSelectedQr(item.id)}>
@@ -26,26 +54,11 @@ function ItemList({ item, deleteSelectedQr }) {
           name="delete"
           size={24}
           color="black"
-          style={{ paddingRight: 10 }}
+          style={styles.iconTrash}
         />
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  ItemLisContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-    paddingVertical: 10,
-  },
-  textLink: {
-    color: "blue",
-    textDecorationLine: "underline",
-  },
-});
 
 export default ItemList;

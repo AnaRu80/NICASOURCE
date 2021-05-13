@@ -1,9 +1,9 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers } from 'redux';
 
-import qrReducer from "./reducers/qrReducer";
+import qrReducer from './reducers/qrReducer';
 
 const rootReducer = combineReducers({
-  qrReducer: qrReducer,
+  qrReducer,
   // filterReducer: filterReducer,
 });
 
