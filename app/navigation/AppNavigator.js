@@ -17,20 +17,24 @@ const AppNavigator = () => (
     }}
   >
     <Tab.Screen
+      name="QrList"
+      component={QrList}
+      options={{
+        unmountOnBlur: true,
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="view-list" color={color} size={size} />
+        ),
+      }}
+      // listeners={({ navigation }) => ({
+      //   blur: () => navigation.setParams({ screen: undefined }),
+      // })}
+    />
+    <Tab.Screen
       name="QrRead"
       component={ReadQr}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="qrcode" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="QrList"
-      component={QrList}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="view-list" color={color} size={size} />
         ),
       }}
     />

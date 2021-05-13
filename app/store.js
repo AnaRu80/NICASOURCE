@@ -4,6 +4,7 @@ import qrReducer from "./reducers/qrReducer";
 
 const rootReducer = combineReducers({
   qrReducer: qrReducer,
+  // filterReducer: filterReducer,
 });
 
 const store = createStore(rootReducer);
